@@ -3,7 +3,7 @@ project(cpp_benchmarks)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 
 option(TESTS "enable/disable tests" ON)
 
