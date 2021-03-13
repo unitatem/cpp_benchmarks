@@ -1,20 +1,20 @@
 #include "benchmark/benchmark.h"
 
-#include <vector>
+#include <unordered_map>
 
-static void BM_vector_push_back(benchmark::State& state)
+static void BM_unordered_map_insert(benchmark::State& state)
 {
     for (auto _ : state)
     {
         state.PauseTiming();
-        std::vector<int> vect;
+        std::unordered_map<int, int> map;
         const int size = state.range(0);
         state.ResumeTiming();
 
         for (int i = 0; i < size; ++i)
         {
-            vect.push_back(i);
+            map.insert({i, i});
         }
     }
 }
-BENCHMARK(BM_vector_push_back)->Range(1, 1e6);
+BENCHMARK(BM_unordered_map_insert)->Range(1, 1e6);
