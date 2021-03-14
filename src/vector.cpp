@@ -6,11 +6,14 @@
 
 static void BM_vector_push_back(benchmark::State& state)
 {
+    const int size = state.range(0);
+    std::vector<int> vect;
+
     for (auto _ : state)
     {
         state.PauseTiming();
-        const int size = state.range(0);
-        std::vector<int> vect;
+        vect.clear();
+        vect.shrink_to_fit();
         state.ResumeTiming();
 
         for (int i = 0; i < size; ++i)
@@ -23,11 +26,13 @@ BENCHMARK(BM_vector_push_back)->Range(1, 1e6);
 
 static void BM_vector_reserve_and_push_back(benchmark::State& state)
 {
+    const int size = state.range(0);
+    std::vector<int> vect;
+
     for (auto _ : state)
     {
         state.PauseTiming();
-        const int size = state.range(0);
-        std::vector<int> vect;
+        vect.clear();
         vect.reserve(size);
         state.ResumeTiming();
 
@@ -41,19 +46,20 @@ BENCHMARK(BM_vector_reserve_and_push_back)->Range(1, 1e6);
 
 static void BM_vector_find(benchmark::State& state)
 {
+    const int size = state.range(0);
+    std::vector<int> vect;
+    for (int i = 0; i < size; ++i)
+    {
+        vect.push_back(i);
+    }
+
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(0, size - 1); // define the range
+
     for (auto _ : state)
     {
         state.PauseTiming();
-        const int size = state.range(0);
-        std::vector<int> vect;
-        for (int i = 0; i < size; ++i)
-        {
-            vect.push_back(i);
-        }
-
-        std::random_device rd; // obtain a random number from hardware
-        std::mt19937 gen(rd()); // seed the generator
-        std::uniform_int_distribution<> distr(0, size - 1); // define the range
         int item = distr(gen); // generate numbers
         state.ResumeTiming();
 
