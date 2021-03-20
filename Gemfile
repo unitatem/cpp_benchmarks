@@ -7,10 +7,7 @@ source "https://rubygems.org"
 # jekyll for GitHub Pages
 gem "github-pages", "~> 212", group: :jekyll_plugins
 
-# theme
-gem "minimal-mistakes-jekyll"
-
-# plugins
+gem "jekyll-include-cache", group: :jekyll_plugins
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
 end
